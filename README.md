@@ -22,4 +22,4 @@ The regular expression for parsing the env file has been borrowed from [sbt-dote
 
 [mill]: https://www.lihaoyi.com/mill
 [sbt-dotenv]: https://github.com/mefellows/sbt-dotenv
-[example]: https://github.com/vic/mill-scalaxb/blob/master/example/build.sc
+[example]: https://github.com/vic/mill-dotenv/blob/master/example/build.sc

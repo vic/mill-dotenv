@@ -4,7 +4,7 @@ import mill._, scalalib._, publish._, ammonite.ops._, ImplicitWd._
 
 object dotenv extends ScalaModule with PublishModule {
 
-  def scalaVersion = "2.12.6"
+  def scalaVersion = "2.12.7"
 
   def publishVersion = "0.0.1"
 

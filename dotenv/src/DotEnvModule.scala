@@ -3,7 +3,7 @@ package mill.dotenv
 import mill._
 import scalalib._
 import ammonite.ops._
-import ImplicitWd._
+
 
 object DotEnvModule {
 

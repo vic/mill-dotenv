@@ -6,7 +6,7 @@ object dotenv extends ScalaModule with PublishModule {
 
   def scalaVersion = "2.12.7"
 
-  def publishVersion = "0.0.1"
+  def publishVersion = "0.0.2"
 
   def artifactName = "mill-dotenv"
 

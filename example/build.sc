@@ -11,11 +11,11 @@ import mill._, scalalib._
 import ammonite.ops._
 import ImplicitWd._
 
-import $ivy.`com.github.vic::mill-dotenv:0.0.1`, mill.dotenv._
+import $ivy.`com.github.vic::mill-dotenv:0.0.2`, mill.dotenv._
 
 object hello extends ScalaModule with DotEnvModule {
 
-  def scalaVersion = "2.12.6"
+  def scalaVersion = "2.12.7"
 
   // by default dotenv will read `$PWD/.env` file
   // unless dotenvSources is overriden.

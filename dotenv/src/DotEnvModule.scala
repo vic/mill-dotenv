@@ -66,6 +66,6 @@ trait DotEnvModule extends JavaModule {
     dotenvSources().map(DotEnvModule.parse).foldLeft(Map[String,String]()) { _ ++ _ }
   }
 
-  override def forkEnv = super.forkEnv() ++ dotenv().seq
+  override def forkEnv = super.forkEnv() ++ dotenv()
 
 }

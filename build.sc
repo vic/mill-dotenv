@@ -4,9 +4,9 @@ import mill._, scalalib._, publish._, ammonite.ops._, ImplicitWd._
 
 object dotenv extends ScalaModule with PublishModule {
 
-  def scalaVersion = "2.12.6"
+  def scalaVersion = "2.12.7"
 
-  def publishVersion = "0.0.1"
+  def publishVersion = "0.0.2"
 
   def artifactName = "mill-dotenv"
 
@@ -30,7 +30,7 @@ object dotenv extends ScalaModule with PublishModule {
   )
 
   def compileIvyDeps = Agg(
-    ivy"com.lihaoyi::mill-scalalib:0.2.3"
+    ivy"com.lihaoyi::mill-scalalib:0.3.3"
   )
 
   object tests extends Tests {

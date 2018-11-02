@@ -3,7 +3,7 @@ package mill.dotenv
 import mill._
 import scalalib._
 import ammonite.ops._
-import ImplicitWd._
+
 
 object DotEnvModule {
 
@@ -66,6 +66,6 @@ trait DotEnvModule extends JavaModule {
     dotenvSources().map(DotEnvModule.parse).foldLeft(Map[String,String]()) { _ ++ _ }
   }
 
-  override def forkEnv = super.forkEnv() ++ dotenv().seq
+  override def forkEnv = super.forkEnv() ++ dotenv()
 
 }

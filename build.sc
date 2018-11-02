@@ -30,7 +30,7 @@ object dotenv extends ScalaModule with PublishModule {
   )
 
   def compileIvyDeps = Agg(
-    ivy"com.lihaoyi::mill-scalalib:0.2.3"
+    ivy"com.lihaoyi::mill-scalalib:0.3.3"
   )
 
   object tests extends Tests {

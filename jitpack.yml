@@ -3,4 +3,4 @@ jdk:
 before_install:
   - ./ci asdf install
 install:
-  - ./ci jitpack
+  - ./ci install

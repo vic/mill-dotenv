@@ -14,7 +14,8 @@ case "$*" in
   $0 test
  ;;
 
- jitpack)
+ install)
+   mill -i $MODULE.publishLocal
    mill -i $MODULE.m2
    mkdir -p ~/.m2
    cp -rv out/$MODULE/m2/dest/ ~/.m2/repository
@@ -29,10 +30,6 @@ case "$*" in
    source ~/.asdf/asdf.sh
    cat .tool-versions | cut -d' ' -f 1 | xargs -IX asdf plugin-add X
    asdf install
- ;;
-
- install)
-   mill -i $MODULE.publishLocal
  ;;
 
  test)

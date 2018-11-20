@@ -32,13 +32,13 @@ case "$*" in
  ;;
 
  install)
-   mill $MODULE.publishLocal
+   mill -i $MODULE.publishLocal
  ;;
 
  test)
-   mill $MODULE.tests
-   (cd example; mill hello.run)
-   (cd example; mill hello.tests)
+   mill -i $MODULE.tests
+   (cd example; mill -i hello.run)
+   (cd example; mill -i hello.tests)
  ;;
   
 esac

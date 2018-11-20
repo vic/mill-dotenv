@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -ex
+set -eux
 
 MODULE=dotenv
 JITPACK_URL=https://jitpack.io/com/github/$TRAVIS_REPO_SLUG
@@ -24,23 +24,20 @@ case "$*" in
  ;;
 
  "asdf install")
-   echo "Installing asdf version manager"
    git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-   echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.bashrc
-   echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
    source ~/.asdf/asdf.sh
    cat .tool-versions | cut -d' ' -f 1 | xargs -IX asdf plugin-add X
    asdf install
  ;;
 
  install)
-  mill $MODULE.publishLocal
+   mill $MODULE.publishLocal
  ;;
 
  test)
-  mill $MODULE.tests
-  (cd example; mill hello.run)
-  (cd example; mill hello.tests)
+   mill $MODULE.tests
+   (cd example; mill hello.run)
+   (cd example; mill hello.tests)
  ;;
   
 esac

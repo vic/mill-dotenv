@@ -4,7 +4,7 @@ import mill._, scalalib._, publish._
 
 object dotenv extends ScalaModule with PublishModule {
 
-  def publishVersion = os.read(os.pwd / "VERSION")
+  def publishVersion = os.read(os.pwd / "VERSION").trim
 
   // use versions installed from .tool-versions
   def scalaVersion = scala.util.Properties.versionNumberString

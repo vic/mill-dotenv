@@ -16,6 +16,9 @@ case "$*" in
 
  install)
    mill -i $MODULE.publishLocal
+ ;;
+
+ jitpack)
    mill -i $MODULE.m2
    mkdir -p ~/.m2
    cp -rv out/$MODULE/m2/dest/ ~/.m2/repository

@@ -2,6 +2,7 @@
 set -exv
 
 MODULE=dotenv
+test -f ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
 
 case "$*" in
 
@@ -27,12 +28,10 @@ case "$*" in
  ;;
 
  install)
-  source ~/.asdf/asdf.sh
   mill $MODULE.publishLocal
  ;;
 
  test)
-  source ~/.asdf/asdf.sh
   mill $MODULE.tests
   (cd example; mill hello.run)
   (cd example; mill hello.tests)

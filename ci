@@ -2,16 +2,15 @@
 set -ex
 
 MODULE=dotenv
-JITPACK_URL=https://jitpack.io/com/$TRAVIS_REPO_SLUG
+JITPACK_URL=https://jitpack.io/com/github/$TRAVIS_REPO_SLUG
 
 test -f ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
 
 case "$*" in
 
- "")
+ "") 
   $0 install
   $0 test
-  $0 jitpack build
  ;;
 
  jitpack)

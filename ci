@@ -2,6 +2,8 @@
 set -ex
 
 MODULE=dotenv
+JITPACK_URL=https://jitpack.io/com/$TRAVIS_REPO_SLUG/mill-$MODULE
+
 test -f ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
 
 case "$*" in
@@ -9,13 +11,17 @@ case "$*" in
  "")
   $0 install
   $0 test
+  $0 jitpack build
  ;;
 
  jitpack)
    mill -i $MODULE.m2
    mkdir -p ~/.m2
-   cp -rv out/dotenv/m2/dest/ ~/.m2/repository
+   cp -rv out/$MODULE/m2/dest/ ~/.m2/repository
  ;;
+
+ "jitpack build")
+   curl -fL $JITPACK_URL/$TRAVIS_COMMIT/build.log
 
  "asdf install")
    echo "Installing asdf version manager"

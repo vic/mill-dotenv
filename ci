@@ -5,6 +5,7 @@ MODULE=dotenv
 JITPACK_URL=https://jitpack.io/com/github/$TRAVIS_REPO_SLUG
 
 test -f ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
+which asdf && asdf current
 
 case "$*" in
 

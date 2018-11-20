@@ -2,11 +2,10 @@ language: java
 jdk:
   - openjdk10
 before_install:
-  - sh -c '(echo "#!/usr/bin/env sh" && curl -L https://github.com/lihaoyi/mill/releases/download/0.3.3/0.3.3) > ~/mill && chmod +x ~/mill'
+  - ./ci asdf install
 install:
-  - ~/mill dotenv.publishLocal
+  - ./ci install
 script:
-  - ~/mill dotenv.tests
-  - (cd example; ~/mill hello.run)
-  - (cd example; ~/mill hello.tests)
+  - ./ci test
+  - ./ci jitpack build
 

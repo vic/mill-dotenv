@@ -2,13 +2,12 @@ package mill.dotenv
 
 import mill._
 import scalalib._
-import ammonite.ops._
 
 
 object DotEnvModule {
 
   def parse(pathRef: PathRef):Map[String,String] = {
-    parse(read!(pathRef.path))
+    parse(os.read(pathRef.path))
   }
 
   def parse(source: String): Map[String, String] = LINE_REGEX.findAllMatchIn(source)
@@ -60,7 +59,7 @@ object DotEnvModule {
 
 trait DotEnvModule extends JavaModule {
 
-  def dotenvSources = T.sources { pwd / ".env" }
+  def dotenvSources = T.sources { os.pwd / ".env" }
 
   def dotenv = T.input {
     dotenvSources().map(DotEnvModule.parse).foldLeft(Map[String,String]()) { _ ++ _ }

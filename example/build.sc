@@ -9,11 +9,10 @@ interp.repositories() =
 
 import mill._, scalalib._
 
-import $ivy.`com.github.vic::mill-dotenv:0.0.3`, mill.dotenv._
+def currentVersion = os.read(os.pwd/os.up/"VERSION").trim
+import $ivy.`com.github.vic::mill-dotenv:${currentVersion}`, mill.dotenv._
 
 object hello extends ScalaModule with DotEnvModule {
-
-  def scalaVersion = "2.12.7"
 
   // by default dotenv will read `$PWD/.env` file
   // unless dotenvSources is overriden.
@@ -25,5 +24,7 @@ object hello extends ScalaModule with DotEnvModule {
     def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.6.3")
     def testFrameworks = Seq("utest.runner.Framework")
   }
+
+  def scalaVersion = scala.util.Properties.versionNumberString
 
 }

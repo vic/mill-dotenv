@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -exv
+
+MODULE=dotenv
+
+case "$*" in
+
+ "")
+  $0 install
+  $0 test
+ ;;
+
+ jitpack)
+   mill -i $MODULE.m2
+   mkdir -p ~/.m2
+   cp -rv out/dotenv/m2/dest/ ~/.m2/repository
+ ;;
+
+ "asdf install")
+   echo "Installing asdf version manager"
+   git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+   echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.bashrc
+   echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
+   source ~/.asdf/asdf.sh
+   cat .tool-versions | cut -d' ' -f 1 | xargs -IX asdf plugin-add X
+   asdf install
+ ;;
+
+ install)
+  mill $MODULE.publishLocal
+ ;;
+
+ test)
+  mill $MODULE.tests
+  (cd example; mill hello.run)
+  (cd example; mill hello.tests)
+ ;;
+  
+esac

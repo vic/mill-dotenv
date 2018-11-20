@@ -2,7 +2,7 @@
 set -ex
 
 MODULE=dotenv
-JITPACK_URL=https://jitpack.io/com/$TRAVIS_REPO_SLUG/mill-$MODULE
+JITPACK_URL=https://jitpack.io/com/$TRAVIS_REPO_SLUG
 
 test -f ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
 

@@ -6,7 +6,9 @@ object dotenv extends ScalaModule with PublishModule {
 
   def publishVersion = "0.0.3"
 
+  // use versions installed from .tool-versions
   def scalaVersion = scala.util.Properties.versionNumberString
+  def millVersion = System.getProperty("MILL_VERSION")
 
   def artifactName = "mill-dotenv"
 
@@ -30,7 +32,7 @@ object dotenv extends ScalaModule with PublishModule {
   )
 
   def ivyDeps = Agg(
-    ivy"com.lihaoyi::mill-scalalib:${System.getProperty("MILL_VERSION")}"
+    ivy"com.lihaoyi::mill-scalalib:${millVersion}"
   )
 
   object tests extends Tests {

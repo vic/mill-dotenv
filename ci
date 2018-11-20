@@ -27,10 +27,12 @@ case "$*" in
  ;;
 
  install)
+  source ~/.asdf/asdf.sh
   mill $MODULE.publishLocal
  ;;
 
  test)
+  source ~/.asdf/asdf.sh
   mill $MODULE.tests
   (cd example; mill hello.run)
   (cd example; mill hello.tests)

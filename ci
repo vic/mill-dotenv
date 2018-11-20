@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -exv
+set -ex
 
 MODULE=dotenv
 test -f ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh

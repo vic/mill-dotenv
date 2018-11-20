@@ -7,4 +7,5 @@ install:
   - ./ci install
 script:
   - ./ci test
+  - ./ci jitpack build
 

@@ -9,8 +9,7 @@ interp.repositories() =
 
 import mill._, scalalib._
 
-def currentVersion = os.read(os.pwd/os.up/"VERSION").trim
-import $ivy.`com.github.vic::mill-dotenv:${currentVersion}`, mill.dotenv._
+import $ivy.`com.github.vic::mill-dotenv:0.0.3`, mill.dotenv._
 
 object hello extends ScalaModule with DotEnvModule {
 

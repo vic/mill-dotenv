@@ -36,8 +36,7 @@ object dotenv extends ScalaModule with PublishModule {
   )
 
   object tests extends Tests {
-    def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.6.3")
+    def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.6.6")
     def testFrameworks = Seq("utest.runner.Framework")
   }
-
 }

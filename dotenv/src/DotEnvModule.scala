@@ -66,5 +66,4 @@ trait DotEnvModule extends JavaModule {
   }
 
   override def forkEnv = super.forkEnv() ++ dotenv()
-
 }

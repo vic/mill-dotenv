@@ -1,5 +1,11 @@
 // -*- mode: scala -*-
 
+// Dont use sonatype's maven-central as it timeouts in travis.
+interp.repositories() =
+  List(coursier.MavenRepository("https://jcenter.bintray.com"))
+
+@
+
 import mill._, scalalib._, publish._
 
 object dotenv extends ScalaModule with PublishModule {
@@ -31,12 +37,12 @@ object dotenv extends ScalaModule with PublishModule {
     )
   )
 
-  def ivyDeps = Agg(
+  def compileIvyDeps = Agg(
     ivy"com.lihaoyi::mill-scalalib:${millVersion}"
   )
 
   object tests extends Tests {
-    def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.6.6")
+    def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.6.6") ++ dotenv.compileIvyDeps()
     def testFrameworks = Seq("utest.runner.Framework")
   }
 }

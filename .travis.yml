@@ -1,6 +1,4 @@
-language: java
-jdk:
-  - openjdk10
+language: shell
 before_install:
   - ./ci asdf install
 install:

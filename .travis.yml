@@ -1,4 +1,4 @@
-language: shell
+language: minimal
 before_install:
   - ./ci asdf install
 install:

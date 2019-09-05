@@ -6,7 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 When creating a release always specify the `mill` and `scala` versions that were
 used to build the project. Since `mill` libs currently have no binary backwards compatibility.
 
-## 0.1.0 - [Unreleased]
+## 0.2.1 - [Unreleased]
+
+## [0.2.0] - 2019-09-05
+
+### Changed
+- Upgrade to Mill 0.5.1 and Scala 2.12.9
+
+## [0.1.0] - 2019-06-27
 
 ### Changed
 
@@ -26,5 +33,7 @@ used to build the project. Since `mill` libs currently have no binary backwards 
   Scala and mill versions are managed from `.tool-versions` file.
   The VERSION specifies this project's version number.
 
-[unreleased]: https://github.com/vic/mill-dotenv/compare/0.0.3...HEAD
-[0.0.3]: https://github.com/vic/mill-dotenv/compare/0.0.2...0.0.3
+[Unreleased]: https://github.com/vic/mill-docker/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/vic/mill-docker/compare/0.1.0...0.2.0
+[0.1.0]: https://github.com/vic/mill-docker/compare/0.0.3...0.1.0
+[0.0.3]: https://github.com/vic/mill-docker/compare/0.0.2...0.0.3

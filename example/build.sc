@@ -1,15 +1,17 @@
 // -*- mode: scala -*-
 
+import $ivy.`io.get-coursier:interface:0.0.21`
+
 // add mill-scalaxb artifact repo
 import mill._
 interp.repositories() =
-  interp.repositories() ++ Seq(coursier.MavenRepository("https://jitpack.io"))
+  interp.repositories() ++ Seq(coursierapi.MavenRepository.of("https://jitpack.io"))
 
 @
 
 import mill._, scalalib._
 
-import $ivy.`com.github.vic::mill-dotenv:0.2.0`, mill.dotenv._
+import $ivy.`com.github.vic::mill-dotenv:0.3.0`, mill.dotenv._
 
 object hello extends ScalaModule with DotEnvModule {
 

@@ -1,8 +1,0 @@
-language: minimal
-before_install:
-  - ./ci asdf install
-install:
-  - ./ci install
-script:
-  - ./ci test
-  - ./ci jitpack release

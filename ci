@@ -1,50 +1,34 @@
 #!/usr/bin/env bash
 set -ex
 
-MODULE=dotenv
-JITPACK_URL=https://jitpack.io/com/github/$TRAVIS_REPO_SLUG
-
-test -f ~/.asdf/asdf.sh && source ~/.asdf/asdf.sh
-which asdf && asdf current
+mkdir -p $HOME/bin
+export PATH=$HOME/bin:$PATH
 
 case "$*" in
 
- "") 
-  $0 install
-  $0 test
- ;;
-
- install)
-   mill -i $MODULE.publishLocal
- ;;
-
  jitpack)
-   mill -i $MODULE.m2
+   mill -i _.m2
    mkdir -p ~/.m2
-   cp -rv out/$MODULE/m2/dest/ ~/.m2/repository
+   cp -rv out/*/m2/dest/ ~/.m2/repository
  ;;
 
- "jitpack build")
-   curl -NvfL $JITPACK_URL/$TRAVIS_COMMIT/build.log
+
+ "jitpack deps")
+     # asdf depends on column and asdf-java depends on jq,
+     # however it seems there's no way to install system dependencies on jitpack container.
+     # We just install mill and set a jdk on jitpack.yml
+     echo installing mill via curl
+     mill_version=$(awk '/mill/ {print $2}' .tool-versions)
+     curl -o $HOME/bin/mill -L https://github.com/lihaoyi/mill/releases/download/$mill_version/$mill_version
+     chmod +x $HOME/bin/mill
  ;;
 
- "jitpack release")
-   if [ ! -z "$TRAVIS_TAG" ]; then
-     curl -NvfL $JITPACK_URL/$TRAVIS_TAG/build.log
-   fi
- ;;
-
- "asdf install")
-   git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-   source ~/.asdf/asdf.sh
-   cat .tool-versions | cut -d' ' -f 1 | xargs -IX asdf plugin-add X
-   asdf install
- ;;
 
  test)
-   mill -i $MODULE.tests
+   mill -i _.publishLocal
+   mill -i _.tests
    (cd example; mill -i hello.run)
    (cd example; mill -i hello.tests)
  ;;
-  
+
 esac

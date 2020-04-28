@@ -1,6 +1,6 @@
 # mill-dotenv
 
-[![Build Status](https://travis-ci.org/vic/mill-dotenv.svg?branch=master)](https://travis-ci.org/vic/mill-dotenv)
+![Main workflow](https://github.com/vic/mill-dotenv/workflows/Main%20workflow/badge.svg)
 [![jitpack](https://jitpack.io/v/vic/mill-dotenv.svg)](https://jitpack.io/#vic/mill-dotenv)
 
 A [Mill][mill] module for loading environment variables from a local file.

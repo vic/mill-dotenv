@@ -1,15 +1,16 @@
 // -*- mode: scala -*-
 
+import $ivy.`io.get-coursier:interface:0.0.21`
+
 // Dont use sonatype's maven-central as it timeouts in travis.
 interp.repositories() =
-  List(coursier.MavenRepository("https://jcenter.bintray.com"))
+  List(coursierapi.MavenRepository.of("https://jcenter.bintray.com"))
 
 @
 
 import mill._, scalalib._, publish._
 
 object dotenv extends ScalaModule with PublishModule {
-
   def publishVersion = os.read(os.pwd / "VERSION").trim
 
   // use versions installed from .tool-versions
@@ -42,7 +43,7 @@ object dotenv extends ScalaModule with PublishModule {
   )
 
   object tests extends Tests {
-    def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.6.6") ++ dotenv.compileIvyDeps()
+    def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.7.4") ++ dotenv.compileIvyDeps()
     def testFrameworks = Seq("utest.runner.Framework")
   }
 }

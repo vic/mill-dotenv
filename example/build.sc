@@ -11,7 +11,7 @@ interp.repositories() =
 
 import mill._, scalalib._
 
-import $ivy.`com.github.vic::mill-dotenv:0.3.0`, mill.dotenv._
+import $ivy.`com.github.vic::mill-dotenv:0.4.0`, mill.dotenv._
 
 object hello extends ScalaModule with DotEnvModule {
 
@@ -22,7 +22,7 @@ object hello extends ScalaModule with DotEnvModule {
     // load.env-test for test environment
     override def dotenvSources = T.sources { os.pwd / ".env-test" }
 
-    def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.6.3")
+    def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.7.4")
     def testFrameworks = Seq("utest.runner.Framework")
   }
 

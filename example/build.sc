@@ -11,7 +11,7 @@ interp.repositories() =
 
 import mill._, scalalib._
 
-import $ivy.`com.github.vic::mill-dotenv:0.4.0`, mill.dotenv._
+import $ivy.`com.github.vic::mill-dotenv:0.5.0`, mill.dotenv._
 
 object hello extends ScalaModule with DotEnvModule {
 

@@ -1,3 +1,2 @@
 java adopt-openjdk-11+28
-mill 0.7.3
 scala 2.13.2

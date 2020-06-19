@@ -25,3 +25,8 @@ hs_err_pid*
 out/
 
 .#*
+
+cs
+.metals/
+.bloop/
+.idea*

@@ -10,22 +10,13 @@ interp.repositories() =
 
 import mill._, scalalib._, publish._
 
-object dotenv extends ScalaModule with PublishModule {
+val crossVersions = Seq("2.13.2", "2.12.11")
+
+object dotenv extends Cross[Dotenv](crossVersions: _*)
+class Dotenv(val crossScalaVersion: String) extends CrossScalaModule with PublishModule { self =>
   def publishVersion = os.read(os.pwd / "VERSION").trim
 
-  // use versions installed from .tool-versions
-  def scalaVersion = scala.util.Properties.versionNumberString
-  def millVersion = System.getProperty("MILL_VERSION")
-
   def artifactName = "mill-dotenv"
-
-  def m2 = T {
-    val pa = publishArtifacts()
-    val wd = T.ctx().dest
-    val ad = pa.meta.group.split("\\.").foldLeft(wd)((a, b) => a / b) / pa.meta.id / pa.meta.version
-    os.makeDir.all(ad)
-    pa.payload.map { case (f,n) => os.copy(f.path, ad/n) }
-  }
 
   def pomSettings = PomSettings(
     description = "mill support for twelve-factor apps. load environment variables from .env",
@@ -39,11 +30,11 @@ object dotenv extends ScalaModule with PublishModule {
   )
 
   def compileIvyDeps = Agg(
-    ivy"com.lihaoyi::mill-scalalib:${millVersion}"
+    ivy"com.lihaoyi::mill-scalalib:latest.stable"
   )
 
   object tests extends Tests {
-    def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.7.4") ++ dotenv.compileIvyDeps()
+    def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.7.4") ++ self.compileIvyDeps()
     def testFrameworks = Seq("utest.runner.Framework")
   }
 }

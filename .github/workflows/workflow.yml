@@ -19,10 +19,36 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
       - name: Test
         run:  ./ci test
+
+  scalafmt:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Scalafmt
+        run:  ./ci scalafmt-test
+
+  example:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Example
+        run:  ./ci example
 
   jitpack-commit:
     needs: test

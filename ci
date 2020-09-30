@@ -22,6 +22,10 @@ case "$1" in
    exec $0 cs launch scalafmt -- --mode diff --diff-branch master "${@:2}"
  ;;
 
+ scalafmt-test)
+   $0 scalafmt --test
+ ;;
+
  cs)
    test -x $BASE_DIR/cs || {
      curl -o $BASE_DIR/cs -qL https://git.io/coursier-cli
@@ -31,14 +35,13 @@ case "$1" in
  ;;
 
  example)
+  $0 mill -j 0 __.publishLocal
   (cd example; ../ci mill hello.run)
   (cd example; ../ci mill hello.tests)
  ;;
 
  test)
    $0 mill -j 0 __.tests
-   $0 scalafmt --test
-   $0 example
  ;;
 
  release)

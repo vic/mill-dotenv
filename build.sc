@@ -10,11 +10,25 @@ interp.repositories() =
 
 import mill._, scalalib._, publish._
 
-val crossVersions = Seq("2.13.2", "2.12.11")
+object meta {
+  val crossVersions = Seq("2.13.2", "2.12.11")
 
-object dotenv extends Cross[Dotenv](crossVersions: _*)
+  implicit val wd: os.Path = os.pwd
+
+  val gitSha = %%("git", "rev-parse", "--short", "HEAD").out.trim
+  val gitTag = %%("git", "tag", "-l", "-n0", "--points-at", "HEAD").out.trim
+
+  val publishVersion = {
+    gitTag match {
+      case "" => gitSha
+      case _  => gitTag
+    }
+  }
+}
+
+object dotenv extends Cross[Dotenv](meta.crossVersions: _*)
 class Dotenv(val crossScalaVersion: String) extends CrossScalaModule with PublishModule { self =>
-  def publishVersion = os.read(os.pwd / "VERSION").trim
+  def publishVersion = meta.publishVersion
 
   def artifactName = "mill-dotenv"
 

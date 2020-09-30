@@ -1,14 +1,7 @@
 // -*- mode: scala -*-
 
-import $ivy.`io.get-coursier:interface:0.0.21`
-
-// Dont use sonatype's maven-central as it timeouts in travis.
-interp.repositories() =
-  List(coursierapi.MavenRepository.of("https://jcenter.bintray.com"))
-
-@
-
 import mill._, scalalib._, publish._
+import ammonite.ops._
 
 object meta {
   val crossVersions = Seq("2.13.2", "2.12.11")

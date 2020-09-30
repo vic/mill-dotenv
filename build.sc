@@ -2,21 +2,22 @@
 
 import mill._, scalalib._, publish._
 import ammonite.ops._
+import scala.util.Properties
 
 object meta {
   val crossVersions = Seq("2.13.2", "2.12.11")
 
   implicit val wd: os.Path = os.pwd
 
-  val gitSha = %%("git", "rev-parse", "--short", "HEAD").out.trim
-  val gitTag = %%("git", "tag", "-l", "-n0", "--points-at", "HEAD").out.trim
-
-  val publishVersion = {
-    gitTag match {
-      case "" => gitSha
-      case _  => gitTag
-    }
+  def nonEmpty(s: String): Option[String] = s.trim match {
+    case v if v.isEmpty => None
+    case v => Some(v)
   }
+
+  val versionFromEnv = Properties.propOrNone("PUBLISH_VERSION")
+  val gitSha = nonEmpty(%%("git", "rev-parse", "--short", "HEAD").out.trim)
+  val gitTag = nonEmpty(%%("git", "tag", "-l", "-n0", "--points-at", "HEAD").out.trim)
+  val publishVersion = (versionFromEnv orElse gitTag orElse gitSha).getOrElse("latest")
 }
 
 object dotenv extends Cross[Dotenv](meta.crossVersions: _*)

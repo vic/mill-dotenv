@@ -18,6 +18,10 @@ case "$1" in
    exec $0 cs launch "mill:$(< $BASE_DIR/.mill-version)" -- "${@:2}"
  ;;
 
+ mill-i)
+   exec $0 cs launch "mill-interactive:$(< $BASE_DIR/.mill-version)" -- -i "${@:2}"
+ ;;
+
  scalafmt)
    exec $0 cs launch scalafmt -- --mode diff --diff-branch master "${@:2}"
  ;;
@@ -35,7 +39,7 @@ case "$1" in
  ;;
 
  example)
-  $0 mill -j 0 __.publishLocal
+  $0 mill-i -j 0 -D PUBLISH_VERSION=latest __.publishLocal
   (cd example; ../ci mill hello.run)
   (cd example; ../ci mill hello.tests)
  ;;

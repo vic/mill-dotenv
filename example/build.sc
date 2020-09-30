@@ -1,17 +1,14 @@
 // -*- mode: scala -*-
 
 import $repo.`https://jitpack.io`
+import $ivy.`com.github.vic::mill-dotenv:latest` // Change to fixed release
 
-// Change to a fixed mill-dotenv release
-import $ivy.`com.github.vic::mill-dotenv:latest`
-
-import mill._, scalalib._
-
-import mill.dotenv._
+import mill._, scalalib._, mill.dotenv._
 
 object hello extends ScalaModule with DotEnvModule {
 
-  def scalaVersion = scala.util.Properties.versionNumberString
+  override def scalaVersion = scala.util.Properties.versionNumberString
+  override def finalMainClass = T("hello.Main")
 
   // by default dotenv will read `$PWD/.env` file
   // unless `def dotenvSources` is overriden.

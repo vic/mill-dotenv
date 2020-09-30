@@ -6,9 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 When creating a release always specify the `mill` and `scala` versions that were
 used to build the project. Since `mill` libs currently have no binary backwards compatibility.
 
-## 0.4.0 - [Unreleased]
+## 0.5.1 - [Unreleased]
 
-Upgrade to mill 0.7.x
+- Upgrade to Mill 0.8.0
+
+## 0.5.0
+
+- Cross compile scala 2.12 and 2.13
+
+## 0.4.0
+
+- Upgrade to mill 0.7.x
 
 ## [0.2.0] - 2019-09-05
 

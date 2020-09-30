@@ -1,20 +1,28 @@
 // -*- mode: scala -*-
 
-import $ivy.`io.get-coursier:interface:0.0.21`
-
-// Dont use sonatype's maven-central as it timeouts in travis.
-interp.repositories() =
-  List(coursierapi.MavenRepository.of("https://jcenter.bintray.com"))
-
-@
-
 import mill._, scalalib._, publish._
+import ammonite.ops._
+import scala.util.Properties
 
-val crossVersions = Seq("2.13.2", "2.12.11")
+object meta {
+  val crossVersions = Seq("2.13.2", "2.12.11")
 
-object dotenv extends Cross[Dotenv](crossVersions: _*)
+  implicit val wd: os.Path = os.pwd
+
+  def nonEmpty(s: String): Option[String] = s.trim match {
+    case v if v.isEmpty => None
+    case v => Some(v)
+  }
+
+  val versionFromEnv = Properties.propOrNone("PUBLISH_VERSION")
+  val gitSha = nonEmpty(%%("git", "rev-parse", "--short", "HEAD").out.trim)
+  val gitTag = nonEmpty(%%("git", "tag", "-l", "-n0", "--points-at", "HEAD").out.trim)
+  val publishVersion = (versionFromEnv orElse gitTag orElse gitSha).getOrElse("latest")
+}
+
+object dotenv extends Cross[Dotenv](meta.crossVersions: _*)
 class Dotenv(val crossScalaVersion: String) extends CrossScalaModule with PublishModule { self =>
-  def publishVersion = os.read(os.pwd / "VERSION").trim
+  def publishVersion = meta.publishVersion
 
   def artifactName = "mill-dotenv"
 

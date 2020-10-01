@@ -19,10 +19,9 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Test
-        run:  ./ci test
+      - uses: actions/checkout@v2
+      - uses: coursier/cache-action@v3
+      - run:  ./ci test
 
   scalafmt:
     strategy:
@@ -32,10 +31,9 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Scalafmt
-        run:  ./ci scalafmt-test
+      - uses: actions/checkout@v2
+      - uses: coursier/cache-action@v3
+      - run:  ./ci scalafmt-test
 
   example:
     strategy:
@@ -45,10 +43,9 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Example
-        run:  ./ci example
+      - uses: actions/checkout@v2
+      - uses: coursier/cache-action@v3
+      - run:  ./ci example
 
   jitpack-commit:
     needs: test

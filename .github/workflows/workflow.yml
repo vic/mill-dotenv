@@ -10,41 +10,38 @@ on:
   schedule:
     - cron: "0 0 * * 5"
 
-jobs:
-  test:
+fragments:
+  runs-on: &runs-on
     strategy:
       matrix:
         os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
+  checkout: &checkout
+    - uses: actions/checkout@v2
+    - uses: coursier/cache-action@v3
+      with:
+        extraFiles: |
+          ["cs"]
+
+jobs:
+  test:
+    <<: *runs-on
     steps:
-      - uses: actions/checkout@v2
-      - uses: coursier/cache-action@v3
+      - *checkout
       - run:  ./ci test
 
   scalafmt:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-
-    runs-on: ${{ matrix.os }}
-
+    <<: *runs-on
     steps:
-      - uses: actions/checkout@v2
-      - uses: coursier/cache-action@v3
+      - *checkout
       - run:  ./ci scalafmt-test
 
   example:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-
-    runs-on: ${{ matrix.os }}
-
+    <<: *runs-on
     steps:
-      - uses: actions/checkout@v2
-      - uses: coursier/cache-action@v3
+      - *checkout
       - run:  ./ci example
 
   jitpack-commit:

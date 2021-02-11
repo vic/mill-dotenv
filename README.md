@@ -1,6 +1,6 @@
 # mill-dotenv
 
-![Main workflow](https://github.com/vic/mill-dotenv/workflows/Main%20workflow/badge.svg)
+[![Main workflow](https://github.com/vic/mill-dotenv/workflows/Main%20workflow/badge.svg)](https://github.com/vic/mill-dotenv/actions?query=workflow%3A%22Main+workflow%22)
 [![jitpack](https://jitpack.io/v/vic/mill-dotenv.svg)](https://jitpack.io/#vic/mill-dotenv)
 
 A [Mill][mill] module for loading environment variables from a local file.

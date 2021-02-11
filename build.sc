@@ -6,7 +6,7 @@ import scala.util.Properties
 
 object meta {
 
-  val crossVersions = Seq("2.13.2", "2.12.11")
+  val crossVersions = Seq("2.13.2")
 
   implicit val wd: os.Path = os.pwd
 
@@ -15,6 +15,7 @@ object meta {
     case v => Some(v)
   }
 
+  val MILL_VERSION = Properties.propOrNull("MILL_VERSION")
   val versionFromEnv = Properties.propOrNone("PUBLISH_VERSION")
   val gitSha = nonEmpty(%%("git", "rev-parse", "--short", "HEAD").out.trim)
   val gitTag = nonEmpty(%%("git", "tag", "-l", "-n0", "--points-at", "HEAD").out.trim)
@@ -39,7 +40,7 @@ class Dotenv(val crossScalaVersion: String) extends CrossScalaModule with Publis
   )
 
   def compileIvyDeps = Agg(
-    ivy"com.lihaoyi::mill-scalalib:latest.stable"
+    ivy"com.lihaoyi::mill-scalalib:${meta.MILL_VERSION}"
   )
 
   object tests extends Tests {

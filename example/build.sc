@@ -1,6 +1,5 @@
 // -*- mode: scala -*-
 
-import $repo.`https://jitpack.io`
 import $ivy.`com.github.vic::mill-dotenv:latest` // Change to fixed release
 
 import mill._, scalalib._, mill.dotenv._

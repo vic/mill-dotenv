@@ -6,7 +6,7 @@ import scala.util.Properties
 
 object meta {
 
-  val crossVersions = Seq("2.13.2")
+  val crossVersions = Seq("2.13.6")
 
   implicit val wd: os.Path = os.pwd
 

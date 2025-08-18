@@ -11,35 +11,27 @@ function die {
 case "$1" in
 
  jitpack)
-   exec $0 mill -j 0 __.publishM2Local
+   $BASE_DIR/mill -j 0 __.publishM2Local
  ;;
 
  mill)
-   exec $0 cs launch --scala 2.13.8  mill -- "${@:2}"
+   $BASE_DIR/mill "${@:2}"
  ;;
 
  mill-i)
-   exec $0 cs launch --scala 2.13.8 mill-interactive -- -i "${@:2}"
+   $BASE_DIR/mill -i "${@:2}"
  ;;
 
  scalafmt)
-   exec $0 cs launch --scala 2.13.8 scalafmt -- --diff "${@:2}"
+   $0 mill mill.scalalib.scalafmt/
  ;;
 
  scalafmt-test)
-   $0 scalafmt --test
- ;;
-
- cs)
-   test -x $BASE_DIR/cs || {
-     curl -o $BASE_DIR/cs -qL https://git.io/coursier-cli
-     chmod +x $BASE_DIR/cs
-   }
-   exec $BASE_DIR/cs "${@:2}"
+   $0 mill mill.scalalib.scalafmt/checkFormatAll
  ;;
 
  example)
-  $0 mill-i -j 0 -D PUBLISH_VERSION=latest __.publishLocal
+  $0 mill-i -j 0 -DPUBLISH_VERSION=latest __.publishLocal
   (cd example; ../ci mill hello.run)
   (cd example; ../ci mill hello.tests)
  ;;

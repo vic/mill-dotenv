@@ -1,20 +1,24 @@
-// -*- mode: scala -*-
+//| mvnDeps: ["com.github.vic::mill-dotenv:latest"]
+//| mill-version: 1.0.3
 
-import $ivy.`com.github.vic::mill-dotenv:latest` // Change to fixed release
+// -*- mode: scala -*-
+package build
 
 import mill._, scalalib._, mill.dotenv._
+import mill.api.BuildCtx
 
 object hello extends ScalaModule with DotEnvModule {
   override def scalaVersion = scala.util.Properties.versionNumberString
-  override def finalMainClass = T("hello.Main")
+  override def finalMainClass = Task("hello.Main")
 
   // by default dotenv will read `$PWD/.env` file
   // unless `def dotenvSources` is overriden.
 
-  object tests extends Tests with DotEnvModule with TestModule.Utest {
+  object tests extends ScalaTests with DotEnvModule with TestModule.Utest {
     // load.env-test for test environment
-    override def dotenvSources = T.sources { os.pwd / ".env-test" }
-
-    def ivyDeps = Agg(ivy"com.lihaoyi::utest::0.7.11")
+    override def dotenvSources = Task.Sources {
+      BuildCtx.workspaceRoot / ".env-test"
+    }
+    override def mvnDeps = Seq(mvn"com.lihaoyi::utest:0.9.0")
   }
 }

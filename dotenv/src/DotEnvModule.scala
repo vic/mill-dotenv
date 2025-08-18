@@ -1,23 +1,29 @@
 package mill.dotenv
 
 import mill._
-import scalalib._
-
+import mill.scalalib._
+import os.Path
+import mill.api.BuildCtx
 
 object DotEnvModule {
 
-  def parse(pathRef: PathRef):Map[String,String] = {
+  def parse(pathRef: PathRef): Map[String, String] = {
     parse(os.read(pathRef.path))
   }
 
-  def parse(source: String): Map[String, String] = LINE_REGEX.findAllMatchIn(source)
-    .map(keyValue => (keyValue.group(1), unescapeCharacters(removeQuotes(keyValue.group(2)))))
+  def parse(source: String): Map[String, String] = LINE_REGEX
+    .findAllMatchIn(source)
+    .map(keyValue =>
+      (keyValue.group(1), unescapeCharacters(removeQuotes(keyValue.group(2))))
+    )
     .toMap
 
   private def removeQuotes(value: String): String = {
     value.trim match {
-      case quoted if quoted.startsWith("'") && quoted.endsWith("'") => quoted.substring(1, quoted.length - 1)
-      case quoted if quoted.startsWith("\"") && quoted.endsWith("\"") => quoted.substring(1, quoted.length - 1)
+      case quoted if quoted.startsWith("'") && quoted.endsWith("'") =>
+        quoted.substring(1, quoted.length - 1)
+      case quoted if quoted.startsWith("\"") && quoted.endsWith("\"") =>
+        quoted.substring(1, quoted.length - 1)
       case unquoted => unquoted
     }
   }
@@ -54,16 +60,19 @@ object DotEnvModule {
        (?:$|\z)           # end of line
     """.r
 
-
 }
 
-trait DotEnvModule extends JavaModule {
+trait DotEnvModule extends mill.javalib.JavaModule {
 
-  def dotenvSources = T.sources { os.pwd / ".env" }
+  def dotenvSources = Task.Sources { BuildCtx.workspaceRoot / ".env" }
 
-  def dotenv = T.input {
-    dotenvSources().map(DotEnvModule.parse).foldLeft(Map[String,String]()) { _ ++ _ }
-  }
+  def dotenv = dotenvSources
+    .map(
+      _.map(DotEnvModule.parse)
+        .foldLeft(Map[String, String]()) {
+          _ ++ _
+        }
+    )
 
   override def forkEnv = super.forkEnv() ++ dotenv()
 }
